@@ -6,6 +6,7 @@ import Search from "../components/Search";
 import CharacterList from "../components/CharacterList";
 import Paginate from "../components/Paginate";
 import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 const Home = () => {
   const { state, dispatch } = useContext(Context);
@@ -25,13 +26,7 @@ const Home = () => {
           Rick And Morty
         </h1>
         <Search />
-        {error && (
-          <div className="h-screen flex mt-40 justify-center">
-            <p className="text-2xl text-gray-700 text-center font-medium">
-              {error}
-            </p>
-          </div>
-        )}
+        {error && <Error error={error} />}
         {loading && <Loader />}
         {data && <CharacterList charactersData={data.results} />}
         {data && <Paginate totalPages={data.info.pages} page={page} />}

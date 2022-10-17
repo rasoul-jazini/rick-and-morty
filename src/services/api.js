@@ -11,3 +11,8 @@ export const searchCharacter = async (name) => {
   const { data } = await axios.get(`/character?name=${name}`);
   return data;
 };
+
+export const getSingleCharacter = async (characterId) => {
+  const { data } = await axios.get(`character/${characterId}`);
+  return data;
+};

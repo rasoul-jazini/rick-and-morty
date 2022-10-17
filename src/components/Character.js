@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 const Character = ({ character }) => {
   return (
-    <div className="col-span-6 md:col-span-3 shadow-md rounded-sm overflow-hidden">
+    <Link
+      to={`/${character.id}`}
+      className="col-span-6 md:col-span-3 shadow-xl rounded-sm overflow-hidden"
+    >
       <div className="aspect-square relative">
         <img
           src={character.image}
@@ -11,7 +16,7 @@ const Character = ({ character }) => {
           {character.name}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
