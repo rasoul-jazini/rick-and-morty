@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import ContextProvider from "./context";
 import App from "./App";
+import CharactersContextProvider from "./context/CharactersContext";
+import CharacterContextProvider from "./context/CharacterContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ContextProvider>
-    <App />
-  </ContextProvider>
+  <CharactersContextProvider>
+    <CharacterContextProvider>
+      <App />
+    </CharacterContextProvider>
+  </CharactersContextProvider>
 );

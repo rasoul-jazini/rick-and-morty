@@ -1,8 +1,12 @@
 import { createContext } from "react";
 import { useReducerAsync } from "use-reducer-async";
-import { getCharacters, searchCharacter } from "../services/api";
+import {
+  getCharacters,
+  getSingleCharacter,
+  searchCharacter,
+} from "../services/api";
 
-export const Context = createContext();
+export const CharactersContext = createContext();
 
 const initialState = {
   loading: false,
@@ -10,7 +14,7 @@ const initialState = {
   error: null,
 };
 
-const reducer = (state, action) => {
+const charactersReducer = (state, action) => {
   switch (action.type) {
     case "PENDING":
       return {
@@ -60,18 +64,32 @@ const asyncActionHandlers = {
         dispatch({ type: "REJECT", payload: "There isn't this character!" });
       }
     },
+  GET_CHARACTER:
+    ({ dispatch }) =>
+    async (action) => {
+      dispatch({ type: "PENDING" });
+
+      try {
+        const data = await getSingleCharacter(action.payload);
+        dispatch({ type: "SUCCESS", payload: data });
+      } catch (error) {
+        dispatch({ type: "REJECT", payload: "Not found this character :(!" });
+      }
+    },
 };
 
-const ContextProvider = ({ children }) => {
+const CharactersContextProvider = ({ children }) => {
   const [state, dispatch] = useReducerAsync(
-    reducer,
+    charactersReducer,
     initialState,
     asyncActionHandlers
   );
 
   return (
-    <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
+    <CharactersContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CharactersContext.Provider>
   );
 };
 
-export default ContextProvider;
+export default CharactersContextProvider;

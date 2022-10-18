@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../context";
+import { CharactersContext } from "../context/CharactersContext";
 
 const Search = () => {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(CharactersContext);
   const navigate = useNavigate();
   const [name, setName] = useState("");
 

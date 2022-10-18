@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Context } from "../context";
+import { CharactersContext } from "../context/CharactersContext";
 import qs from "query-string";
 import Search from "../components/Search";
 import CharacterList from "../components/CharacterList";
@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 
 const Home = () => {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(CharactersContext);
   const { loading, data, error } = state;
   const location = useLocation();
   let { page } = qs.parse(location.search);
@@ -17,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_CHARACTERS", payload: page });
-  }, [page]);
+  }, [page, dispatch]);
 
   return (
     <section className="bg-gray-50 w-full min-h-screen py-8">
