@@ -20,7 +20,7 @@ const Home = () => {
   }, [page, dispatch]);
 
   return (
-    <section className="bg-gray-50 w-full min-h-screen py-8">
+    <div className="bg-gray-50 w-full min-h-screen py-8">
       <div className="container px-4 max-w-5xl">
         <h1 className="text-gray-900 text-3xl sm:text-5xl md:text-7xl text-center pt-4 pb-10">
           Rick And Morty
@@ -28,10 +28,14 @@ const Home = () => {
         <Search />
         {error && <Error error={error} />}
         {loading && <Loader />}
-        {data && <CharacterList charactersData={data.results} />}
-        {data && <Paginate totalPages={data.info.pages} page={page} />}
+        {data && (
+          <>
+            <CharacterList charactersData={data.results} />{" "}
+            <Paginate totalPages={data.info.pages} page={page} />
+          </>
+        )}
       </div>
-    </section>
+    </div>
   );
 };
 
